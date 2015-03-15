@@ -54,15 +54,14 @@
   },
   "homepage": "https://github.com/royriojas/bumpery",
   "keywords": [
-    "esformatter",
-    "beautifier",
-    "javascript",
-    "code",
-    "beautifier",
-    "jsx",
-    "beautifier",
-    "jsx",
-    "prettyprint",
-    "prettify"
+    "bump",
+    "grunt bump",
+    "increase patch version",
+    "increase minor version",
+    "increase major version",
+    "semver",
+    "tag version",
+    "commit version",
+    "manage publish"
   ]
 }
