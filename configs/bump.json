@@ -1,0 +1,22 @@
+{
+  "bumpVersion": true,
+  "commit": true,
+  "commitFiles": [
+    "package.json"
+  ],
+  "commitMessage": "BLD: Release v%VERSION%",
+  "createTag": true,
+  "dryRun": false,
+  "files": [
+    "package.json"
+  ],
+  "gitDescribeOptions": "--tags --always --abbrev=1 --dirty=-d",
+  "globalReplace": false,
+  "prereleaseName": false,
+  "push": true,
+  "pushTo": "origin master",
+  "setVersion": true,
+  "tagMessage": "Version %VERSION%",
+  "tagName": "v%VERSION%",
+  "verify" : ""
+}

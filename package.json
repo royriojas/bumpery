@@ -1,0 +1,68 @@
+{
+  "name": "bumpery",
+  "version": "1.0.1",
+  "description": "Yet another bump module, but this works exactly like the grunt-bump one, but without grunt",
+  "main": "index.js",
+  "scripts": {
+    "beautify": "esbeautifier index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",
+    "beautify-check": "esbeautifier -k index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",
+    "eslint": "eslint --format 'node_modules/eslint-friendly-formatter' index.js lib/ bin/ src/ specs/ -c './configs/eslint.json'",
+    "test": "mocha-runner 'specs/**/*.js'",
+    "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
+    "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'index.js' -p 'src/**/*.js' npm run cover",
+    "check": "npm run beautify && npm run eslint",
+    "prepush": "npm run beautify-check && npm run eslint && npm test",
+    "bump" : "./bin/cli.js --verify='npm run prepush'"
+  },
+  "bin": {
+    "bumpery": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/royriojas/bumpery"
+  },
+  "license": "MIT",
+  "author": "Roy Riojas (http://royriojas.com)",
+  "prepush": [
+    "npm run prepush"
+  ],
+  "devDependencies": {
+    "esbeautifier": "^2.0.0",
+    "eslint": "^0.17.0",
+    "eslint-friendly-formatter": "^1.0.3",
+    "istanbul": "^0.3.7",
+    "lodash.merge": "^3.0.3",
+    "mocha-runner": "^1.0.4",
+    "prepush": "^1.0.2",
+    "proxyquire": "^1.4.0",
+    "watch-spawn": "^1.0.3"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "clix": "^1.0.5",
+    "dispatchy": "^1.0.2",
+    "glob-expand": "0.0.2",
+    "js-object-pretty-print": "^0.1.3",
+    "read-file": "^0.1.2",
+    "read-json-sync": "^1.1.0",
+    "semver": "^4.3.1",
+    "stringformat": "0.0.5",
+    "write": "^0.1.1"
+  },
+  "bugs": {
+    "url": "https://github.com/royriojas/bumpery/issues"
+  },
+  "homepage": "https://github.com/royriojas/bumpery",
+  "keywords": [
+    "esformatter",
+    "beautifier",
+    "javascript",
+    "code",
+    "beautifier",
+    "jsx",
+    "beautifier",
+    "jsx",
+    "prettyprint",
+    "prettify"
+  ]
+}
