@@ -17,6 +17,8 @@ var exec = function () {
   return cp;
 };
 
+var spawn = require( './lib/spawn' );
+
 module.exports = merge( dispatchy.create(), {
   bump: function ( options, done ) {
     var me = this;
@@ -108,12 +110,10 @@ module.exports = merge( dispatchy.create(), {
     //    }
 
     runIf( typeof opts.verify === 'string' && opts.verify.trim() !== '', function () {
-      exec( opts.verify, function ( err, stdout, stderr ) {
-        if ( err ) {
-          done( new Error( 'Verify failed: ' + stderr ) );
-          return;
-        }
-        next();
+      var p = spawn( opts.verify );
+      p.then( next );
+      p.catch( function () {
+        done( new Error( 'Verify step failed!' ) );
       } );
     } );
 
