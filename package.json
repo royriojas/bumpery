@@ -1,6 +1,6 @@
 {
   "name": "bumpery",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Yet another bump module, but this works exactly like the grunt-bump one, but without grunt",
   "main": "index.js",
   "scripts": {
