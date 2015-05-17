@@ -268,7 +268,7 @@ module.exports = merge( dispatchy.create(), {
     // PUSH CHANGES
     runIf( opts.push, function () {
       var cmd = 'git push ' + opts.pushTo + ' && ';
-      cmd += 'git push ' + opts.pushTo + ' --tags';
+      cmd += 'git push ' + opts.pushTo + ' --tags --no-verify'; // verification happen in the previous push
       if ( dryRun ) {
         //grunt.log.ok( 'bump-dry: ' + cmd );
         me.fire( 'push', {
