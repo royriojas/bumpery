@@ -12,7 +12,8 @@
     "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'index.js' -p 'src/**/*.js' npm run cover",
     "lint": "npm run beautify && npm run eslint",
     "prepush": "npm run beautify-check && npm run eslint && npm test",
-    "bump": "./bin/cli.js --verify='npm run prepush'"
+    "bump": "./bin/cli.js --verify='npm run prepush'",
+    "changelog": "changelogx -f markdown -o ./changelog.md"
   },
   "bin": {
     "bumpery": "./bin/cli.js"

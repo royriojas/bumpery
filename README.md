@@ -95,3 +95,7 @@ bumpery --verify='npm test'
 # dry run. This will just show what the command will do
 bumpery -d 
 ```
+
+## Changelog
+
+[Changelog](./changelog.md)
