@@ -122,7 +122,7 @@ module.exports = merge( dispatchy.create(), {
       exec( 'git describe ' + opts.gitDescribeOptions, function ( err, stdout ) {
         if ( err ) {
           //grunt.fatal( '' );
-          done( new Error( 'Can not get a version number using `git describe`' ) );
+          done( new Error( 'Cannot get a version number using `git describe`' ) );
           return;
         }
         gitVersion = stdout.trim();
@@ -146,7 +146,7 @@ module.exports = merge( dispatchy.create(), {
         );
 
         if ( !version ) {
-          done( new Error( 'Can not find a version to bump in ' + file ) );
+          done( new Error( 'Cannot find a version to bump in ' + file ) );
           return;
         }
 
@@ -184,7 +184,7 @@ module.exports = merge( dispatchy.create(), {
         //        var cfg = grunt.config( configProperty );
         //        if ( !cfg ) {
         //          return grunt.warn(
-        //              'Can not update "' + configProperty + '" config, it does not exist!'
+        //              'Cannot update "' + configProperty + '" config, it does not exist!'
         //          );
         //        }
 
@@ -221,7 +221,7 @@ module.exports = merge( dispatchy.create(), {
       } else {
         exec( cmd, function ( err, stdout, stderr ) {
           if ( err ) {
-            done( new Error( 'Can not create the commit:\n\n' + stderr ) );
+            done( new Error( 'Cannot create the commit:\n\n' + stderr ) );
             return;
           }
 
@@ -252,7 +252,7 @@ module.exports = merge( dispatchy.create(), {
       } else {
         exec( cmd, function ( err, stdout, stderr ) {
           if ( err ) {
-            done( new Error( 'Can not create the tag:\n  ' + stderr ) );
+            done( new Error( 'Cannot create the tag:\n  ' + stderr ) );
           }
           //grunt.log.ok( 'Tagged as "' + tagName + '"' );
           me.fire( 'tag', {
@@ -279,7 +279,7 @@ module.exports = merge( dispatchy.create(), {
       } else {
         exec( cmd, function ( err, stdout, stderr ) {
           if ( err ) {
-            done( new Error( 'Can not push to ' + opts.pushTo + ':\n  ' + stderr ) );
+            done( new Error( 'Cannot push to ' + opts.pushTo + ':\n  ' + stderr ) );
             return;
           }
           me.fire( 'push', {
