@@ -1,5 +1,14 @@
 
 # bumpery - Changelog
+## v1.1.1
+- **Bug Fixes**
+  - fix failing unit test after upgrade the clix - [2d29ca5]( https://github.com/royriojas/bumpery/commit/2d29ca5 ), [royriojas](https://github.com/royriojas), 12/07/2015 19:12:25
+
+    
+- **Build Scripts Changes**
+  - update clix dep to remove coloring output by default - [6adfc63]( https://github.com/royriojas/bumpery/commit/6adfc63 ), [royriojas](https://github.com/royriojas), 12/07/2015 19:08:37
+
+    
 ## v1.1.0
 - **Build Scripts Changes**
   - Add bump-minor npm script - [29abd3d]( https://github.com/royriojas/bumpery/commit/29abd3d ), [royriojas](https://github.com/royriojas), 12/07/2015 18:51:45
