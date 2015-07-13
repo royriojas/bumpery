@@ -1,21 +1,13 @@
 'use strict';
 
 var semver = require( 'semver' );
-var _exec = require( 'child_process' ).exec;
-var merge = require( 'lodash.merge' );
+var exec = require( 'child_process' ).exec;
+var merge = require( 'extend' );
 var expand = require( 'glob-expand' );
 var read = require( 'read-file' ).readFileSync;
 var write = require( 'write' ).sync;
 var dispatchy = require( 'dispatchy' );
 var readJSON = require( 'read-json-sync' );
-
-var exec = function () {
-  var cp = _exec.apply( null, arguments );
-  cp.on( 'error', function ( err ) {
-    console.error( '>>> err', err );
-  } );
-  return cp;
-};
 
 var spawn = require( './lib/spawn' );
 
@@ -24,7 +16,7 @@ module.exports = merge( dispatchy.create(), {
     var me = this;
     //var DESC = 'Increment the version, commit, tag and push.';
     //grunt.registerTask('bump', DESC, function(versionType, incOrCommitOnly) {
-    var opts = merge( {
+    var opts = merge( true, {
       bumpVersion: true,
       commit: true,
       commitFiles: [
@@ -53,7 +45,7 @@ module.exports = merge( dispatchy.create(), {
         if ( err ) {
           throw err;
         }
-      };
+    };
 
     var versionType = opts.versionType;
     var dryRun = opts.dryRun;
@@ -67,15 +59,15 @@ module.exports = merge( dispatchy.create(), {
     var gitVersion; // when bumping using `git describe`
 
     var VERSION_REGEXP = opts.regExp || new RegExp(
-      '([\'|"]?version[\'|"]?[ ]*:[ ]*[\'|"]?)(\\d+\\.\\d+\\.\\d+(-' +
-        opts.prereleaseName +
-        '\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|"]?)', 'i'
-      );
+        '([\'|"]?version[\'|"]?[ ]*:[ ]*[\'|"]?)(\\d+\\.\\d+\\.\\d+(-' +
+          opts.prereleaseName +
+          '\\.\\d+)?(-\\d+)?)[\\d||A-a|.|-]*([\'|"]?)', 'i'
+    );
     if ( opts.globalReplace ) {
       VERSION_REGEXP = new RegExp( VERSION_REGEXP.source, 'gi' );
     }
 
-    var queue = [];
+    var queue = [ ];
 
     var next = function () {
       if ( !queue.length ) {
@@ -140,7 +132,7 @@ module.exports = merge( dispatchy.create(), {
             var type = versionType === 'git' ? 'prerelease' : versionType;
             version = setVersion || semver.inc(
                 parsedVersion, type || 'patch', gitVersion || opts.prereleaseName
-              );
+            );
             return prefix + version + suffix;
           }
         );
@@ -188,9 +180,9 @@ module.exports = merge( dispatchy.create(), {
         //          );
         //        }
 
-        //        cfg.version = version;
-        //        grunt.config( configProperty, cfg );
-        //        grunt.log.ok( configProperty + '\'s version updated' );
+      //        cfg.version = version;
+      //        grunt.config( configProperty, cfg );
+      //        grunt.log.ok( configProperty + '\'s version updated' );
       } );
       next();
     } );
@@ -213,10 +205,7 @@ module.exports = merge( dispatchy.create(), {
 
       if ( dryRun ) {
         //grunt.log.ok( 'bump-dry: ' + cmd );
-        me.fire( 'commit', {
-          dryRun: dryRun,
-          cmd: cmd
-        } );
+        me.fire( 'commit', { dryRun: dryRun, cmd: cmd } );
         next();
       } else {
         exec( cmd, function ( err, stdout, stderr ) {
@@ -244,10 +233,7 @@ module.exports = merge( dispatchy.create(), {
       var cmd = 'git tag -a ' + tagName + ' -m "' + tagMessage + '"';
       if ( dryRun ) {
         //grunt.log.ok( 'bump-dry: ' + cmd );
-        me.fire( 'tag', {
-          dryRun: dryRun,
-          cmd: cmd
-        } );
+        me.fire( 'tag', { dryRun: dryRun, cmd: cmd } );
         next();
       } else {
         exec( cmd, function ( err, stdout, stderr ) {
@@ -255,10 +241,7 @@ module.exports = merge( dispatchy.create(), {
             done( new Error( 'Cannot create the tag:\n  ' + stderr ) );
           }
           //grunt.log.ok( 'Tagged as "' + tagName + '"' );
-          me.fire( 'tag', {
-            dryRun: dryRun,
-            tagName: tagName
-          } );
+          me.fire( 'tag', { dryRun: dryRun, tagName: tagName } );
           next();
         } );
       }
@@ -271,10 +254,7 @@ module.exports = merge( dispatchy.create(), {
       cmd += 'git push ' + opts.pushTo + ' --tags --no-verify'; // verification happen in the previous push
       if ( dryRun ) {
         //grunt.log.ok( 'bump-dry: ' + cmd );
-        me.fire( 'push', {
-          dryRun: dryRun,
-          cmd: cmd
-        } );
+        me.fire( 'push', { dryRun: dryRun, cmd: cmd } );
         next();
       } else {
         exec( cmd, function ( err, stdout, stderr ) {
@@ -282,10 +262,7 @@ module.exports = merge( dispatchy.create(), {
             done( new Error( 'Cannot push to ' + opts.pushTo + ':\n  ' + stderr ) );
             return;
           }
-          me.fire( 'push', {
-            dryRun: dryRun,
-            pustTo: opts.pushTo
-          } );
+          me.fire( 'push', { dryRun: dryRun, pustTo: opts.pushTo } );
           //grunt.log.ok( 'Pushed to ' + opts.pushTo );
           next();
         } );
