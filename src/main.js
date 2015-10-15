@@ -22,7 +22,7 @@ module.exports = {
 
     var opts = cli.opts;
 
-    var bumperConfig = merge( { }, cli.getConfig(), opts );
+    var bumperConfig = merge( { }, opts, cli.getConfig()  );
     delete bumperConfig._;
     delete bumperConfig.config;
 
