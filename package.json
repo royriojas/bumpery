@@ -15,7 +15,9 @@
     "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog'",
     "bump": "./bin/cli.js --verify='npm run prepush'",
     "bump-minor": "./bin/cli.js --versionType='minor' --verify='npm run prepush'",
-    "changelog": "changelogx -f markdown -o ./changelog.md"
+    "changelog": "changelogx -f markdown -o ./changelog.md",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "bin": {
     "bumpery": "./bin/cli.js"
@@ -49,7 +51,8 @@
     "read-json-sync": "^1.1.0",
     "semver": "^4.3.6",
     "stringformat": "0.0.5",
-    "write": "^0.1.1"
+    "write": "^0.1.1",
+    "snyk": "^1.105.0"
   },
   "changelogx": {
     "ignoreRegExp": [
@@ -78,5 +81,6 @@
     "tag version",
     "commit version",
     "manage publish"
-  ]
+  ],
+  "snyk": true
 }
